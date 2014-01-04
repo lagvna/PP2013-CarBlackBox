@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">CarBlackBox</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_main">MainActivity</string>
+    <string name="title_activity_settings">SettingsActivity</string>
+    <string name="title_activity_recordings">RecordingsActivity</string>
+    <string name="title_activity_library">LibraryActivity</string>
+    <string name="title_activity_rec">RecActivity</string>
+
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="dark_gray">#333333</color>
+    <color name="light_gray">#777777</color>
+    <color name="very_light_gray">#C3C3C3</color>
+    <color name="menu_border">#6c6c6c</color>
+    <color name="list_divider">#dddddd</color>
+    <color name="blue">#0000FF</color>
+    <color name="transparent">#00000000</color>
+    <color name="halfBlue">#0000FF88</color>
+    <color name="white_transparent">#FFFFFFEE</color>
+    <color name="black_transparent">#000000EE</color>
+    <color name="green">#55CC44</color>
+    <color name="darkGreen">#44A436</color>
+    <color name="orange">#FFD700</color>
+
+    <string name="title_activity_credits">CreditsActivity</string>
+
+</resources>
