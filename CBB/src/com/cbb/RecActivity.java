@@ -1,13 +1,11 @@
 package com.cbb;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 
 import android.app.Activity;
+import android.app.Dialog;
+import android.app.ProgressDialog;
 import android.content.pm.ActivityInfo;
 import android.hardware.Camera;
 import android.media.CamcorderProfile;
@@ -24,11 +22,16 @@ import android.view.WindowManager;
 public class RecActivity extends Activity implements SurfaceHolder.Callback {
 
     public static final String LOGTAG = "VIDEOCAPTURE";
-
+    public static final int PLEASE_WAIT_DIALOG = 1;
+    
     private MediaRecorder recorder;
     private SurfaceHolder holder;
     private CamcorderProfile camcorderProfile;
-    private Camera camera;        
+    private Camera camera;
+    private File tmp1;
+    private File tmp2;
+    private int counter;
+    private Thread recordingThread;
     
     boolean recording = false;
     boolean usecamera = true;
@@ -53,16 +56,9 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         holder = cameraView.getHolder();
         holder.addCallback(this);
     	
-        File dst = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb2.mp4");
-		if(dst.exists())	{
-			System.out.println("JES2!");
-			System.out.println(dst.length());
-		}
-		File dst1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb1.mp4");
-		if(dst1.exists())	{
-			System.out.println("JEST1!");
-			System.out.println(dst1.length());
-		}
+        counter = 0;
+        tmp1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb1.mp4");
+		tmp2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb2.mp4");
     }
 
     private void prepareRecorder(String fileName) {
@@ -79,7 +75,7 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
 
         recorder.setProfile(camcorderProfile);
 
-        if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.THREE_GPP) { // low quality, nie trzeba camera id
+        if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.THREE_GPP) { // low quality, nie trzeba camera id, czy chcemy low quality?
         	try {
         		File newFile = File.createTempFile("first", ".3gp", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM));
                 recorder.setOutputFile(newFile.getAbsolutePath());
@@ -127,7 +123,7 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         Log.v(LOGTAG, "Recording Started");
     }
     
-    private void proceedToNext()	{
+    private void stopRecording(boolean isNext)	{
     	recorder.stop();
     	try {
     		camera.reconnect();
@@ -135,33 +131,27 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         	e.printStackTrace();
         }
         Log.v(LOGTAG, "Recording Stopped");
-        prepareRecorder(nameChooser());
-    }
-    
-    private void stopRecording()	{
-    	recorder.stop();
-    	try {
-    		camera.reconnect();
-        } catch (IOException e) {
-        	e.printStackTrace();
+        if(isNext)	{
+        	prepareRecorder(nameChooser());
         }
-        Log.v(LOGTAG, "Recording Stopped");
-        //prepareRecorder(nameChooser());
     }
     
     private void recordVideo()	{
-    	Thread recordingThread = new Thread() {
+    	recordingThread = new Thread() {
     			
     		@Override
     		public void run() {
     			while(true)	{
     				startRecording2(); // rozpoczynamy nagrywanie przez zadana ilosc sekund
-    				for(int i = 0; i < 6; i++)	{
+    				int seconds = 1;
+    				for(int i = 0; i < 30; i++)	{
+    					
     					if(recording)	{ // dopoki nagrywanie true pobieramy odczyty GPS i Akcelerometru
     		       		// 	stad beda pobierane odczyty GPS, Akcelerometr
-    						System.out.println("Nagrywam");
+    						System.out.println("Nagrywam"+seconds);
     						try { // tu gdzies trzeba bedzie dac recording na false
     							Thread.sleep(1000);
+    							seconds++;
     						} catch (InterruptedException e) {
     							e.printStackTrace();
     						}
@@ -169,11 +159,14 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     						break;
     					}
     				}
+    				
+    				counter++;
+    				
     				if(!recording){ // jesli zostal klikniety guzik lub gps/akcel to wychodzimy z petli i juz nie kopiujemy ost nagrania
-    					stopRecording(); // zapisujemy nagranie i nie zmieniamy nazwy
+    					stopRecording(false); // zapisujemy nagranie i nie tworzymy nowego pliku
     					break;
     				}
-    				proceedToNext(); // zapisujemy nagranie
+    				stopRecording(true); // zapisujemy nagranie
     	        }
     	    }
     	};
@@ -195,8 +188,10 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     	return tmp;
     }
     
-    public void startRecording(View v) { // obsluga buttona
+    public void startRecording(View v) { // obsluga buttona, trzeba jeszcze obsluzyc przypadek gdy film < żądana dlugosc
     	if(!buttonPressed)	{
+    		tmp1.delete();
+    		tmp2.delete();
     		prepareRecorder(nameChooser());
     		buttonPressed = true;
     		recordVideo();
@@ -204,9 +199,36 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     	else	{
     		buttonPressed = false;
     		recording = false;
+    		
+    		while(recordingThread.isAlive())	{}
+    		
+    		if(counter%2 != 0)	{ // normalna kolejnosc
+    			new MovieAppender(this, false).execute();
+    		}
+    		else	{ // kolejnosc odwrocona
+    			new MovieAppender(this, true).execute();
+    		}
     	}
     }
 
+    @Override
+    public Dialog onCreateDialog(int dialogId) {
+ 
+        switch (dialogId) {
+        case PLEASE_WAIT_DIALOG:
+            ProgressDialog dialog = new ProgressDialog(this);
+            dialog.setTitle("Tworzenie nagrania");
+            dialog.setMessage("Proszę czekać....");
+            dialog.setCancelable(false);
+            return dialog;
+ 
+        default:
+            break;
+        }
+        return null;
+    }
+
+    
     public void surfaceCreated(SurfaceHolder holder) {            
         Log.v(LOGTAG, "surfaceCreated");
         if(usecamera)	{
@@ -234,7 +256,6 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         	try {
         		Camera.Parameters p = camera.getParameters();
                 p.setPreviewSize(camcorderProfile.videoFrameWidth, camcorderProfile.videoFrameHeight);
-                p.setPreviewFrameRate(camcorderProfile.videoFrameRate);
                 camera.setParameters(p);
                 camera.setPreviewDisplay(holder);
                 camera.startPreview();
@@ -246,13 +267,13 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         }
     }
 
-    public void surfaceDestroyed(SurfaceHolder holder) { // poprawka zeby nie wywalalo bledu
+    public void surfaceDestroyed(SurfaceHolder holder) {
     	Log.v(LOGTAG, "surfaceDestroyed");
         if (recording) {
         	recorder.stop();
             recording = false;
         }
-        //recorder.release();
+        //recorder.release(); // zeby nie wywalalo bledu przy wyjsciu bez nagrywania
         if(usecamera)	{
         	previewRunning = false;
         	camera.release();

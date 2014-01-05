@@ -2,13 +2,10 @@ package com.cbb;
 
 import android.os.Bundle;
 import android.app.Activity;
-import android.view.Menu;
 import android.view.Window;
 import android.view.WindowManager;
-import android.app.Activity;
 import android.content.pm.ActivityInfo;
 import android.net.Uri;
-import android.os.Bundle;
 import android.os.Environment;
 import android.widget.VideoView;
 
@@ -30,7 +27,7 @@ public class LibraryActivity extends Activity {
 		  setContentView(R.layout.activity_library);
 
 		  vv = (VideoView) this.findViewById(R.id.VideoView);
-		  Uri videoUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb3.mp4");
+		  Uri videoUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb4.mp4");
 		  // Uri videoUri = Uri.parse(Environment.getExternalStorageDirectory().getPath() + "/Test.m4v");
 		  vv.setVideoURI(videoUri);
 		  vv.start();
