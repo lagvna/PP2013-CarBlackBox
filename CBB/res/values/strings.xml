@@ -27,5 +27,6 @@
     <color name="orange">#FFD700</color>
 
     <string name="title_activity_credits">CreditsActivity</string>
+    <string name="title_activity_watching">WatchingActivity</string>
 
 </resources>

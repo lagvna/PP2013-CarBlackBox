@@ -37,6 +37,7 @@ public class ListViewAdapter extends ArrayAdapter<CustomRow> {
 	            holder = new RowHolder();
 	            holder.imgIcon = (ImageView)row.findViewById(R.id.imgIcon);
 	            holder.txtTitle = (TextView)row.findViewById(R.id.txtTitle);
+	            holder.txtDate = (TextView)row.findViewById(R.id.txtDate);
 	 
 	            row.setTag(holder);
 	        }
@@ -47,6 +48,7 @@ public class ListViewAdapter extends ArrayAdapter<CustomRow> {
 	 
 	        CustomRow object = data[position];
 	        holder.txtTitle.setText(object.title);
+	        holder.txtDate.setText(object.date);
 	        holder.imgIcon.setImageResource(object.icon);
 	 
 	        return row;
@@ -55,5 +57,6 @@ public class ListViewAdapter extends ArrayAdapter<CustomRow> {
 	static class RowHolder	{
 	    ImageView imgIcon;
 	    TextView txtTitle;
+	    TextView txtDate;
 	}
 }

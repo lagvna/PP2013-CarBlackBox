@@ -1,16 +1,122 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".CreditsActivity" >
+    android:orientation="vertical"
+    android:id="@+id/rootView"
+    android:background="@color/black">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/hello_world" />
+	<RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/titlebar"     
+		android:gravity="center_horizontal">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="O aplikacji"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:textSize="25sp">
+            
+        </TextView>
+	</RelativeLayout>    
+    
+	<ScrollView
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/black">
 
-</RelativeLayout>
+	<LinearLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical">
+
+		<RelativeLayout 
+    		android:layout_width="wrap_content"
+	    	android:layout_height="wrap_content"
+	    	android:layout_gravity="center"
+    		android:layout_margin="10dp"
+    		android:padding="5dp"
+    		android:background="@drawable/logo"
+    		android:layout_weight="0">
+			
+			
+		</RelativeLayout>
+		<RelativeLayout 
+    		android:layout_width="match_parent"
+	    	android:layout_height="wrap_content"
+    		android:layout_margin="10dp"
+    		android:padding="5dp"
+    		android:background="@drawable/list_shape"
+    		android:layout_weight="0">
+			<TextView
+	     		android:id="@+id/dates"
+     			android:text="Info:"
+     			android:textColor="@color/black"
+        		android:layout_height="wrap_content"
+        		android:paddingBottom="15dp"
+        		android:layout_width="wrap_content"
+        		android:paddingLeft="5dp"
+    	    	android:paddingRight="5dp"
+    	    	android:paddingTop="3dp"/>
+			<TextView
+	        	android:id="@+id/dates_desc"
+		    	android:layout_below="@id/dates"
+     			android:text=""
+     			android:textStyle="italic"
+     			android:textColor="@color/black"
+     			android:gravity="right"
+     			android:textAppearance="@android:style/TextAppearance.Medium"
+        		android:layout_height="wrap_content"
+        		android:layout_width="wrap_content"
+        		android:paddingBottom="7dp"/>
+			
+		</RelativeLayout>
+	
+		<RelativeLayout
+		    	android:layout_width="match_parent"
+    			android:layout_height="match_parent"	
+    			android:orientation="vertical"
+    			android:layout_margin="10dp"
+    			android:padding="5dp"
+    			android:background="@drawable/list_shape">
+			<RelativeLayout 
+			    android:id="@+id/placeLayout"
+    			android:layout_width="match_parent"
+	    		android:layout_height="wrap_content"
+    			>
+				<TextView
+		     		android:id="@+id/place"
+     				android:text="Autorzy:"
+     				android:textColor="@color/black"
+        			android:layout_height="wrap_content"
+        			android:paddingBottom="15dp"
+        			android:layout_width="wrap_content"
+        			android:paddingLeft="5dp"
+    	    		android:paddingRight="5dp"
+    	    		android:paddingTop="3dp"/>
+				<TextView
+		        	android:id="@+id/place_desc"
+		    		android:layout_below="@id/place"
+     				android:text=""
+     				android:textStyle="italic"
+     				android:textColor="@color/black"
+     				android:gravity="right"
+     				android:textAppearance="@android:style/TextAppearance.Medium"
+        			android:layout_height="wrap_content"
+        			android:layout_width="wrap_content"
+        			android:paddingBottom="7dp"
+        			android:paddingLeft="5dp"
+    	    		android:paddingRight="5dp"/>
+			</RelativeLayout>
+			
+		</RelativeLayout>
+		
+	</LinearLayout>
+	
+	</ScrollView>
+	
+</LinearLayout>
