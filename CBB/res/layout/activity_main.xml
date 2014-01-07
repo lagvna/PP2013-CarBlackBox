@@ -39,12 +39,8 @@
 	            android:id="@+id/RecButton"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:layout_margin="10dp"
             	android:background="@drawable/button_rec"
-            	android:scaleType="fitCenter"
-            	android:adjustViewBounds="true"
-            	android:onClick="recordMovie"
-            	android:padding="5dp"/>
+            	android:onClick="recordMovie"/>
         </LinearLayout>
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -56,14 +52,20 @@
     	        android:id="@+id/BrowseButton"
         	   	android:layout_width="wrap_content"
            		android:layout_height="wrap_content"
-	           	android:layout_margin="10dp"
            		android:background="@drawable/button_browse"
-           		android:scaleType="fitCenter"
-           		android:adjustViewBounds="true"
-           		android:onClick="browseMovies"
-           		android:padding="5dp"/>
+           		android:onClick="browseMovies"/>
 		</LinearLayout>
    	</LinearLayout>
+   	
+    <RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"  
+		android:gravity="center_horizontal"
+		android:background="@drawable/titlebar"
+		android:layout_weight="0">
+       
+    </RelativeLayout>
+    
    	<LinearLayout 
         android:layout_width="match_parent"
 		android:layout_height="wrap_content"
@@ -79,14 +81,10 @@
 			android:layout_weight="1">
         	<ImageButton
 	            android:id="@+id/SettingsButton"
-            	android:layout_margin="10dp"
             	android:background="@drawable/button_settings"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:scaleType="fitCenter"
-            	android:adjustViewBounds="true"
-            	android:onClick="adjustSettings"
-            	android:padding="5dp"/>
+            	android:onClick="adjustSettings"/>
 		</LinearLayout>
 		<LinearLayout
 			android:layout_width="match_parent"
@@ -96,14 +94,10 @@
 			android:layout_weight="1">
         	<ImageButton
 	            android:id="@+id/infoButton"
-            	android:layout_margin="10dp"
             	android:background="@drawable/button_info"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:scaleType="fitCenter"
-            	android:adjustViewBounds="true"
-            	android:onClick="showInfo"
-            	android:padding="5dp"/>
+            	android:onClick="showInfo"/>
 		</LinearLayout>
    	</LinearLayout>
 </LinearLayout>

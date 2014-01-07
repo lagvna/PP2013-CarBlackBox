@@ -28,5 +28,6 @@
 
     <string name="title_activity_credits">CreditsActivity</string>
     <string name="title_activity_watching">WatchingActivity</string>
+    <string name="title_activity_dad">DadActivity</string>
 
 </resources>
