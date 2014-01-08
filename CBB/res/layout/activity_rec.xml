@@ -17,9 +17,12 @@
         <Button
 		   	android:id="@+id/recButton"
 	    	android:text=""
+	    	android:textColor="@color/white"
+	    	android:textSize="20sp"
 	    	android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
-	    	android:layout_margin="10dp"
+	    	android:background="@drawable/sign_button_shape"
+	    	android:layout_alignParentTop="true"
 	    	android:layout_gravity="center"
 	    	android:onClick="startRecording"/>
 
@@ -29,6 +32,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:background="@drawable/button"
             android:layout_alignRight="@+id/recButton"
             android:src="@drawable/recbutton" />
 
