@@ -5,7 +5,7 @@
         android:background="@color/black"
         xmlns:android="http://schemas.android.com/apk/res/android">
         <TextView 
-            android:text="Długość filmu:" 
+            android:text="@string/Movie_length" 
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@color/white"
             android:id="@+id/movieLengthText" 
@@ -27,7 +27,7 @@
             android:padding="50dp">
         </SeekBar>
 
-        <CheckBox
+        <Button
             android:id="@+id/gpsBox"
             android:textColor="@color/white"
             android:layout_width="match_parent"
@@ -35,9 +35,10 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/movieLengthBar"
-            android:text="GPS" 
+            android:text="@string/Detect_settings" 
+            android:onClick="goToDetSettings"
             android:padding="50dp"/>
-        <CheckBox
+        <Button
             android:id="@+id/accelBox"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -45,7 +46,8 @@
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:layout_alignParentLeft="true"
             android:layout_below="@+id/gpsBox"
-            android:text="Akcelerometr" 
+            android:text="@string/Personal_settings" 
+            android:onClick="goToPersonalSettings"
             android:padding="50dp"/>
         	
     </RelativeLayout>
