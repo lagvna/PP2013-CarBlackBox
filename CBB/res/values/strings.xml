@@ -29,5 +29,8 @@
     <string name="title_activity_credits">CreditsActivity</string>
     <string name="title_activity_watching">WatchingActivity</string>
     <string name="title_activity_dad">DadActivity</string>
+    <string name="Detect_settings">Ustawienia detektora wypadków</string>
+    <string name="Personal_settings">Konto użytkownika</string>
+    <string name="Movie_length">Długość filmu</string>
 
 </resources>
