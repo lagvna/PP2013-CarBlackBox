@@ -16,11 +16,21 @@
         </SurfaceView>
         <Button
 		   	android:id="@+id/recButton"
-	    	android:text="Start/Stop"
+	    	android:text=""
 	    	android:layout_width="match_parent"
 	    	android:layout_height="wrap_content"
 	    	android:layout_margin="10dp"
 	    	android:layout_gravity="center"
 	    	android:onClick="startRecording"/>
+
+        <ImageButton
+            android:id="@+id/redBut"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignRight="@+id/recButton"
+            android:src="@drawable/recbutton" />
+
     </RelativeLayout>
 </LinearLayout>

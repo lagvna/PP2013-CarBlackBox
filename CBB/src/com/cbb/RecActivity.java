@@ -18,6 +18,8 @@ import android.view.SurfaceView;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.ImageButton;
 
 public class RecActivity extends Activity implements SurfaceHolder.Callback {
 
@@ -32,11 +34,16 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     private File tmp2;
     private int counter;
     private Thread recordingThread;
+    private Button recButton;
+    private ImageButton recCir;
+    private Detector sensorDetector;
+    private View mView;
     
     boolean recording = false;
     boolean usecamera = true;
     boolean previewRunning = false;
     boolean buttonPressed = false;
+    boolean wasAccident = false;
     String currentName = null;
     
     @Override
@@ -51,7 +58,14 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         camcorderProfile = CamcorderProfile.get(1, CamcorderProfile.QUALITY_HIGH);
 
         setContentView(R.layout.activity_rec);
-
+        
+        recButton = (Button) findViewById(R.id.recButton);
+        recCir = (ImageButton) findViewById(R.id.redBut);
+        changeButtonText();
+        
+        //tutaj trzeba zadbac czy w settingsach jest GPS i akcel na ON
+        sensorDetector = new Detector(this, false, 50, true, 10);
+        
         SurfaceView cameraView = (SurfaceView) findViewById(R.id.CameraView);
         holder = cameraView.getHolder();
         holder.addCallback(this);
@@ -61,6 +75,17 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
 		tmp2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb2.mp4");
     }
 
+    private void changeButtonText()	{
+    	if(recButton.getText().equals("Start"))	{
+    		recCir.setVisibility(View.VISIBLE);
+    		recButton.setText("Stop");
+    		
+    	} else	{
+    		recCir.setVisibility(View.INVISIBLE);
+    		recButton.setText("Start");
+    	}
+    }
+    
     private void prepareRecorder(String fileName) {
     	recorder = new MediaRecorder();
         recorder.setPreviewDisplay(holder.getSurface());
@@ -145,8 +170,8 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     				startRecording2(); // rozpoczynamy nagrywanie przez zadana ilosc sekund
     				int seconds = 1;
     				for(int i = 0; i < 30; i++)	{
-    					
-    					if(recording)	{ // dopoki nagrywanie true pobieramy odczyty GPS i Akcelerometru
+    					wasAccident = sensorDetector.wasAccident();
+    					if(recording && !wasAccident)	{ // dopoki nagrywanie true pobieramy odczyty GPS i Akcelerometru
     		       		// 	stad beda pobierane odczyty GPS, Akcelerometr
     						System.out.println("Nagrywam"+seconds);
     						try { // tu gdzies trzeba bedzie dac recording na false
@@ -162,15 +187,27 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     				
     				counter++;
     				
-    				if(!recording){ // jesli zostal klikniety guzik lub gps/akcel to wychodzimy z petli i juz nie kopiujemy ost nagrania
+    				if(!recording || wasAccident){ // jesli zostal klikniety guzik lub gps/akcel to wychodzimy z petli i juz nie kopiujemy ost nagrania
     					stopRecording(false); // zapisujemy nagranie i nie tworzymy nowego pliku
+    					wasAccidentScanner();
     					break;
     				}
-    				stopRecording(true); // zapisujemy nagranie
+    				stopRecording(true); // zapisujemy nagranie i tworzymy nowy plik
     	        }
     	    }
     	};
         recordingThread.start();
+    }
+    
+    private void wasAccidentScanner()	{
+    	runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+            	if(wasAccident)	{
+            		startRecording(mView);
+            	}
+            }
+        });
     }
     
     private String nameChooser()	{
@@ -189,7 +226,10 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     }
     
     public void startRecording(View v) { // obsluga buttona, trzeba jeszcze obsluzyc przypadek gdy film < żądana dlugosc
+    	
+    	mView = v;
     	if(!buttonPressed)	{
+    		changeButtonText();
     		tmp1.delete();
     		tmp2.delete();
     		prepareRecorder(nameChooser());
@@ -197,6 +237,7 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     		recordVideo();
     	}
     	else	{
+    		changeButtonText();
     		buttonPressed = false;
     		recording = false;
     		
@@ -266,7 +307,7 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
             }    
         }
     }
-
+    
     public void surfaceDestroyed(SurfaceHolder holder) {
     	Log.v(LOGTAG, "surfaceDestroyed");
         if (recording) {
@@ -280,4 +321,14 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         }
         finish();
     }
+    
+    public void onBackPressed(){
+    	recording = false;
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+		RecActivity.this.finish();
+	}
 }

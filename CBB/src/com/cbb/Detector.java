@@ -1,4 +1,4 @@
-package com.example.crashdetector;
+package com.cbb;
 
 import android.app.Activity;
 import android.content.Context;
@@ -100,7 +100,7 @@ public class Detector{
 					double val = Math.sqrt(Math.pow(currZ, 2)+Math.pow(currX, 2)+Math.pow(currY, 2));
 					if(val >= paramAccel){
 						accDet = true;
-						check();//1 warunek spelniony
+						//check();//1 warunek spelniony
 						cleanAcc();
 					}
 					
@@ -176,11 +176,11 @@ public class Detector{
 			//throw new Exception("Wrong Parameter");
 	}
 	
-	private void check(){
+	/*private void check(){
 		if((accDet || !isAccel) && (gpsDet || !isGPS)){
 			((MainActivity)act).setAsCrash();
 		}
-	}
+	}*/
 	
 	public boolean wasAccident(){
 		if((accDet || !isAccel) && (gpsDet || !isGPS))

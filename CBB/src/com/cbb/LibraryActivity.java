@@ -11,7 +11,7 @@ import android.widget.ListView;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class LibraryActivity extends ListActivity {
-
+	  CustomRow CustomRow_data[];
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 		  super.onCreate(savedInstanceState);
@@ -20,10 +20,10 @@ public class LibraryActivity extends ListActivity {
 	                            WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		  setContentView(R.layout.activity_library);
 		  
-		  CustomRow CustomRow_data[] = new CustomRow[5];
+		  CustomRow_data = new CustomRow[5];
           
           CustomRow_data[0] = new CustomRow(R.drawable.jeden, "cbb4", "23-05-2003");
-          CustomRow_data[1] = new CustomRow(R.drawable.jeden, "cbb5", "31-07-2012");
+          CustomRow_data[1] = new CustomRow(R.drawable.jeden, "cbb1", "31-07-2012");
           CustomRow_data[2] = new CustomRow(R.drawable.jeden, "cbb6", "13-03-2013");
           CustomRow_data[3] = new CustomRow(R.drawable.jeden, "cbb7", "2-01-2014");
           CustomRow_data[4] = new CustomRow(R.drawable.jeden, "cbb8", "1-08-1990");
@@ -42,7 +42,13 @@ public class LibraryActivity extends ListActivity {
                   int position, long id) {
                   if(position == 0)        {
                           Intent i = new Intent(LibraryActivity.this, WatchingActivity.class);
+                          i.putExtra("title", CustomRow_data[position].title);
                           LibraryActivity.this.startActivity(i);
+                  }
+                  if(position == 1)	{
+                	  Intent i = new Intent(LibraryActivity.this, WatchingActivity.class);
+                	  i.putExtra("title", CustomRow_data[position].title);
+                      LibraryActivity.this.startActivity(i);
                   }
         	  }
           });

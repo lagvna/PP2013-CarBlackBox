@@ -11,7 +11,8 @@ import android.widget.VideoView;
 
 public class WatchingActivity extends Activity {
 	VideoView vv;
-
+	String name;
+	
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 		  super.onCreate(savedInstanceState);
@@ -21,9 +22,18 @@ public class WatchingActivity extends Activity {
 	        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
 		  setContentView(R.layout.activity_watching);
 
+		  name = getName();
+		  
 		  vv = (VideoView) this.findViewById(R.id.VideoView);
-		  Uri videoUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb4.mp4");
+		  Uri videoUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/" + name +".mp4");
 		  vv.setVideoURI(videoUri);
 		  vv.start();
+	  }
+	  
+	  private String getName()	{
+		  Bundle extras = getIntent().getExtras();
+		  String name = extras.getString("title");
+		
+		  return name;
 	  }
 }

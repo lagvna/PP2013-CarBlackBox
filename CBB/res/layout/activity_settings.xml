@@ -1,9 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-    <RelativeLayout android:id="@+id/relativeLayout1" 
+    <LinearLayout android:id="@+id/linearLayout1" 
+        android:orientation="vertical"
         android:layout_width="fill_parent" 
         android:layout_height="fill_parent"
         android:background="@color/black"
         xmlns:android="http://schemas.android.com/apk/res/android">
+        
+        <RelativeLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:background="@drawable/titlebar"     
+		android:gravity="center_horizontal">
+        <TextView
+            android:layout_centerVertical="true"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ustawienia"
+            android:textColor="@color/white"
+            android:layout_margin="10dp"
+            android:textSize="25sp">
+            
+        </TextView>
+	</RelativeLayout>    
+        
+        <ScrollView
+    	android:layout_width="fill_parent"
+    	android:layout_height="wrap_content"
+    	android:background="@color/black">
+    	<LinearLayout
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:orientation="vertical">
+        
         <TextView 
             android:text="@string/Movie_length" 
             android:textAppearance="?android:attr/textAppearanceLarge"
@@ -49,5 +78,6 @@
             android:text="@string/Personal_settings" 
             android:onClick="goToPersonalSettings"
             android:padding="50dp"/>
-        	
-    </RelativeLayout>
+        </LinearLayout>
+        </ScrollView>
+    </LinearLayout>

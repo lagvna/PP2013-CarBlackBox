@@ -2,6 +2,8 @@ package com.cbb;
 
 import android.os.Bundle;
 import android.app.Activity;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.SeekBar;
 import android.widget.SeekBar.OnSeekBarChangeListener;
 import android.widget.TextView;
@@ -14,6 +16,9 @@ public class SettingsActivity extends Activity implements OnSeekBarChangeListene
     public void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
+                                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_settings);     
         
         bar = (SeekBar)findViewById(R.id.movieLengthBar);
