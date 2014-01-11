@@ -64,7 +64,7 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         changeButtonText();
         
         //tutaj trzeba zadbac czy w settingsach jest GPS i akcel na ON
-        sensorDetector = new Detector(this, false, 50, true, 10);
+        sensorDetector = new Detector(this, false, 50, true, 40);
         
         SurfaceView cameraView = (SurfaceView) findViewById(R.id.CameraView);
         holder = cameraView.getHolder();
