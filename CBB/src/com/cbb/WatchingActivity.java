@@ -25,7 +25,7 @@ public class WatchingActivity extends Activity {
 		  name = getName();
 		  
 		  vv = (VideoView) this.findViewById(R.id.VideoView);
-		  Uri videoUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/" + name +".mp4");
+		  Uri videoUri = Uri.parse(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/" + name);
 		  vv.setVideoURI(videoUri);
 		  vv.start();
 	  }

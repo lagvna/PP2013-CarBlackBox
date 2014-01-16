@@ -1,5 +1,7 @@
 package com.cbb;
 
+import java.util.ArrayList;
+
 import com.cbb.R;
 
 import android.app.Activity;
@@ -15,9 +17,9 @@ public class ListViewAdapter extends ArrayAdapter<CustomRow> {
 		 
 	    Context context;
 	    int layoutResourceId;  
-	    CustomRow data[] = null;
+	    ArrayList<CustomRow> data = null;
 	 
-	    public ListViewAdapter(Context context, int layoutResourceId, CustomRow[] data) {
+	    public ListViewAdapter(Context context, int layoutResourceId, ArrayList<CustomRow> data) {
 	        super(context, layoutResourceId, data);
 	        this.layoutResourceId = layoutResourceId;
 	        this.context = context;
@@ -46,7 +48,7 @@ public class ListViewAdapter extends ArrayAdapter<CustomRow> {
 	            holder = (RowHolder)row.getTag();
 	        }
 	 
-	        CustomRow object = data[position];
+	        CustomRow object = data.get(position);
 	        holder.txtTitle.setText(object.title);
 	        holder.txtDate.setText(object.date);
 	        holder.imgIcon.setImageResource(object.icon);

@@ -15,6 +15,7 @@ import com.googlecode.mp4parser.authoring.tracks.AppendTrack;
 import com.googlecode.mp4parser.authoring.tracks.CroppedTrack;
 import com.coremedia.iso.boxes.TimeToSampleBox;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
@@ -39,6 +40,7 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
 		this.isInverted = isInverted;
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onPreExecute() {
 	    fatherActivity.showDialog(RecActivity.PLEASE_WAIT_DIALOG);
@@ -55,6 +57,7 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
 	    return null;
 	}
 	 
+	@SuppressWarnings("deprecation")
 	@Override
 	protected void onPostExecute(Void result) {
 	    fatherActivity.removeDialog(RecActivity.PLEASE_WAIT_DIALOG);
@@ -165,7 +168,10 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
         }
         
         Container out = new DefaultMp4Builder().build(movie);
-        FileOutputStream fos = new FileOutputStream(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb4.mp4"));
+        File dst = File.createTempFile("cbb", ".mp4", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM));
+        String title = dst.getName();
+        System.out.println(title);
+        FileOutputStream fos = new FileOutputStream(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+title));
         FileChannel fc = fos.getChannel();
         out.writeContainer(fc);
 

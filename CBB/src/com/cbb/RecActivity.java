@@ -1,8 +1,11 @@
 package com.cbb;
 
 import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
-
+import java.io.InputStream;
+import java.io.OutputStream;
 import android.app.Activity;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -20,6 +23,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.ImageButton;
+
 
 public class RecActivity extends Activity implements SurfaceHolder.Callback {
 
@@ -100,17 +104,7 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
 
         recorder.setProfile(camcorderProfile);
 
-        if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.THREE_GPP) { // low quality, nie trzeba camera id, czy chcemy low quality?
-        	try {
-        		File newFile = File.createTempFile("first", ".3gp", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM));
-                recorder.setOutputFile(newFile.getAbsolutePath());
-                System.out.println(newFile.getAbsolutePath());
-            } catch (IOException e) {
-            	Log.v(LOGTAG,"Couldn't create file");
-                e.printStackTrace();
-                finish();
-            }
-        } else if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.MPEG_4) {// tutaj wchodzimy w przypadku high quality
+        if (camcorderProfile.fileFormat == MediaRecorder.OutputFormat.MPEG_4) {// tutaj wchodzimy w przypadku high quality
             try {
                 File newFile = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+fileName+".mp4");
                 System.out.println(newFile.getAbsolutePath());
@@ -119,15 +113,6 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
             	Log.v(LOGTAG,"Couldn't create file");
                 e.printStackTrace();
                 finish();
-            }
-        } else {
-        	try {
-        		File newFile = File.createTempFile("videocapture", ".mp4", Environment.getExternalStorageDirectory());
-                recorder.setOutputFile(newFile.getAbsolutePath());
-            } catch (IOException e) {
-                    Log.v(LOGTAG,"Couldn't create file");
-                    e.printStackTrace();
-                    finish();
             }
         }
             
@@ -243,13 +228,36 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     		
     		while(recordingThread.isAlive())	{}
     		
-    		if(counter%2 != 0)	{ // normalna kolejnosc
-    			new MovieAppender(this, false).execute();
-    		}
-    		else	{ // kolejnosc odwrocona
-    			new MovieAppender(this, true).execute();
+    		if(tmp2.exists())	{
+    			if(counter%2 != 0)	{ // normalna kolejnosc
+    				new MovieAppender(this, false).execute();
+    			}
+    			else	{ // kolejnosc odwrocona
+    				new MovieAppender(this, true).execute();
+    			}
+    		} else	{
+    			try {
+        			File dst = File.createTempFile("cbb", ".mp4", Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM));
+					copy(tmp1, dst);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
     		}
     	}
+    }
+    
+    public void copy(File src, File dst) throws IOException {
+        InputStream in = new FileInputStream(src);
+        OutputStream out = new FileOutputStream(dst);
+
+        // Transfer bytes from in to out
+        byte[] buf = new byte[1024];
+        int len;
+        while ((len = in.read(buf)) > 0) {
+            out.write(buf, 0, len);
+        }
+        in.close();
+        out.close();
     }
 
     @Override
@@ -325,7 +333,7 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     public void onBackPressed(){
     	recording = false;
     	try {
-			Thread.sleep(1000);
+			Thread.sleep(100);
 		} catch (InterruptedException e) {
 			e.printStackTrace();
 		}
