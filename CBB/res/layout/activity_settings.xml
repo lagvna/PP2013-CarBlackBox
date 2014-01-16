@@ -53,31 +53,91 @@
             android:layout_below="@+id/movieLengthText" 
             android:layout_alignParentLeft="true" 
             android:layout_marginTop="25dp"
-            android:padding="50dp">
+            android:padding="10dp">
         </SeekBar>
-
-        <Button
-            android:id="@+id/gpsBox"
-            android:textColor="@color/white"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/movieLengthBar"
-            android:text="@string/Detect_settings" 
-            android:onClick="goToDetSettings"
-            android:padding="50dp"/>
-        <Button
-            android:id="@+id/accelBox"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textColor="@color/white"
-            android:textAppearance="?android:attr/textAppearanceLarge"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/gpsBox"
-            android:text="@string/Personal_settings" 
-            android:onClick="goToPersonalSettings"
-            android:padding="50dp"/>
         </LinearLayout>
         </ScrollView>
+
+        <ToggleButton
+            android:id="@+id/toggleButton1"
+            android:layout_width="154dp"
+            android:layout_height="wrap_content"
+            android:textOn="Używaj GPS"
+            android:textOff="Nie używaj GPS" 
+             android:textColor="@color/white"
+            android:onClick="GPSswitch"/>
+
+        <TextView
+            android:id="@+id/textView1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wartoscGps"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <SeekBar
+            android:id="@+id/seekBar1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <ToggleButton
+            android:id="@+id/toggleButton2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ToggleButton"
+            android:textColor="@color/white"
+            android:textOn="Używaj Akcelerometru"
+            android:textOff="Nie używaj akcelerometru"
+            android:onClick="AccSwitch" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="wartoscACC"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceMedium" />
+
+        <SeekBar
+            android:id="@+id/seekBar2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/textView3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Numer Kontaktowy"
+            android:textColor="@color/white"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <EditText
+                android:id="@+id/editText1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentTop="true"
+                android:textColor="@color/white"
+                android:ems="10"
+                android:inputType="phone" >
+
+                <requestFocus />
+            </EditText>
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/editText1"
+                android:text="Zatwierdź numer"
+                android:textColor="@color/white"
+                android:onClick="Klik" />
+
+        </RelativeLayout>
+
     </LinearLayout>

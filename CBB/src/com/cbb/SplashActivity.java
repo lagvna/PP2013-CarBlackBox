@@ -1,5 +1,6 @@
 package com.cbb;
 
+import settings.SaveOpenSettings;
 import android.os.Bundle;
 import android.app.Activity;
 import android.content.Intent;
@@ -14,6 +15,8 @@ public class SplashActivity extends Activity {
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, 
                                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 		setContentView(R.layout.activity_splash);
+		
+		SaveOpenSettings.defaultSettings(getApplicationContext());
 		
 		final Thread mainThread = new Thread() {
 	        @Override
