@@ -67,8 +67,8 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
     public void appendMovies() throws IOException {
 
 
-        String f1 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/cbb1.mp4";
-        String f2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/cbb2.mp4";
+        String f1 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/tmpcbb1.mp4";
+        String f2 = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM) + "/tmpcbb2.mp4";
 
         System.out.println("Plik1: "+f1);
         System.out.println("Plik1: "+f2);
@@ -109,18 +109,18 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
 
         Container out = new DefaultMp4Builder().build(result);
 
-        FileChannel fc = new RandomAccessFile(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb3.mp4"), "rw").getChannel();
+        FileChannel fc = new RandomAccessFile(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/tmpcbb3.mp4"), "rw").getChannel();
         out.writeContainer(fc);
         fc.close();
     }
     
     public void trimMovies() throws IOException	{
-    	Movie movie = MovieCreator.build(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb3.mp4"));
+    	Movie movie = MovieCreator.build(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/tmpcbb3.mp4"));
 
         List<Track> tracks = movie.getTracks();
         movie.setTracks(new LinkedList<Track>());
         
-        double duration = getDuration(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb3.mp4"));
+        double duration = getDuration(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/tmpcbb3.mp4"));
         
         System.err.println("Dlugość filmu: " + duration);
         

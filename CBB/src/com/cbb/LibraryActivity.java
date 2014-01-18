@@ -64,7 +64,7 @@ public class LibraryActivity extends ListActivity {
 		  CustomRow_data.clear();
           
 		  for(int i = 0; i < names.length; i++)	{
-			  if(names[i].startsWith("cbb-"))	{
+			  if(names[i].startsWith("cbb"))	{
 				  File tmp = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/"+names[i]);
 				  String date = sdf.format(tmp.lastModified());
 				  String title = names[i];

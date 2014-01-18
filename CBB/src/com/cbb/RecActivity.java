@@ -75,8 +75,8 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
         holder.addCallback(this);
     	
         counter = 0;
-        tmp1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb1.mp4");
-		tmp2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/cbb2.mp4");
+        tmp1 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/tmpcbb1.mp4");
+		tmp2 = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/tmpcbb2.mp4");
     }
 
     private void changeButtonText()	{
@@ -198,11 +198,11 @@ public class RecActivity extends Activity implements SurfaceHolder.Callback {
     private String nameChooser()	{
     	String tmp = null;
     	if(currentName == null)	{
-    		currentName = "cbb1";
-    	} else if(currentName.equals("cbb1"))	{
-    		currentName = "cbb2";
-    	} else if(currentName.equals("cbb2"))	{
-    		currentName = "cbb1";
+    		currentName = "tmpcbb1";
+    	} else if(currentName.equals("tmpcbb1"))	{
+    		currentName = "tmpcbb2";
+    	} else if(currentName.equals("tmpcbb2"))	{
+    		currentName = "tmpcbb1";
     	}
     	
     	tmp = currentName;
