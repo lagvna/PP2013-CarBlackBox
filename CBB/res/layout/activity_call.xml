@@ -7,30 +7,19 @@
     <RelativeLayout
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"  
+		android:gravity="center_horizontal"
 		android:background="@drawable/titlebar">
         <TextView
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Menu główne"
+            android:text="Zadzwoń"
             android:textColor="@color/white"
             android:layout_margin="10sp"
             android:textSize="25sp">
             
         </TextView>
-
-        <ImageButton
-            android:id="@+id/imageButton1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="10dp"
-            android:background="@drawable/button"
-            android:onClick="clickHelp"
-            android:src="@drawable/helps" />
-
     </RelativeLayout>
 
     <LinearLayout 
@@ -47,26 +36,13 @@
 			android:background="@color/black"
 			android:layout_weight="1">
         	<ImageButton
-	            android:id="@+id/RecButton"
+	            android:id="@+id/emergencyButton"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	
-            	android:background="@drawable/rec_selector"
-            	android:onClick="recordMovie"/>
+            	android:background="@drawable/emerg_selector"
+            	android:onClick="callEmergency"/>
         </LinearLayout>
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"  
-			android:gravity="center"
-			android:background="@color/black"
-			android:layout_weight="1">
-	       	<ImageButton
-    	        android:id="@+id/BrowseButton"
-        	   	android:layout_width="wrap_content"
-           		android:layout_height="wrap_content"
-           		android:background="@drawable/lib_selector"
-           		android:onClick="browseMovies"/>
-		</LinearLayout>
+
    	</LinearLayout>
    	
     <RelativeLayout
@@ -92,24 +68,12 @@
 			android:background="@color/black"
 			android:layout_weight="1">
         	<ImageButton
-	            android:id="@+id/SettingsButton"
-            	android:background="@drawable/settings_selector"
+	            android:id="@+id/contactButton"
+            	android:background="@drawable/ice_selector"
             	android:layout_width="wrap_content"
             	android:layout_height="wrap_content"
-            	android:onClick="adjustSettings"/>
+            	android:onClick="callContact"/>
 		</LinearLayout>
-		<LinearLayout
-			android:layout_width="match_parent"
-			android:layout_height="wrap_content"  
-			android:gravity="center"
-			android:background="@color/black"
-			android:layout_weight="1">
-        	<ImageButton
-	            android:id="@+id/infoButton"
-            	android:background="@drawable/info_selector"
-            	android:layout_width="wrap_content"
-            	android:layout_height="wrap_content"
-            	android:onClick="showInfo"/>
-		</LinearLayout>
+
    	</LinearLayout>
 </LinearLayout>

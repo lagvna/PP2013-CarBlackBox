@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:layout_width="wrap_content"
+   	android:id="@+id/popup"
+   	android:padding="20dp"
+   	android:layout_height="wrap_content"
+   	android:background="@drawable/popup_bg"
+   	android:orientation="vertical" >
+	<ScrollView
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:paddingTop="20dp">
+
+		<LinearLayout
+	    	android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="vertical">
+
+    		<TextView
+    		    android:id="@+id/ust"
+    		    android:layout_width="fill_parent"
+    		    android:layout_height="wrap_content"
+    		    android:text="Przeglądanie nagrań"
+    		    android:textAppearance="?android:attr/textAppearanceMedium"
+    		    android:textColor="@color/black"
+    		    android:textStyle="bold" />
+
+    		<TextView
+    		    android:id="@+id/gpsT"
+    		    android:layout_width="fill_parent"
+    		    android:layout_height="wrap_content"
+    		    android:text="Oglądanie filmu:"
+    		    android:textColor="@color/black"
+    		    android:textStyle="bold" />
+
+    		<TextView
+    		    android:id="@+id/gpsDesc"
+    		    android:layout_width="fill_parent"
+    		    android:layout_height="wrap_content"
+    		    android:text="Aby obejrzeć nagranie, wystarczy że klikniesz interesującą pozycję, a zostanie ono odtworzone."
+    		    android:textColor="@color/black" />
+
+    		<TextView
+    		    android:id="@+id/akT"
+    		    android:layout_width="fill_parent"
+    		    android:layout_height="wrap_content"
+    		    android:text="Usunięcie filmu:"
+    		    android:textColor="@color/black"
+    		    android:textStyle="bold" />
+
+    		<TextView
+    		    android:id="@+id/akDesc"
+    		    android:layout_width="fill_parent"
+    		    android:layout_height="wrap_content"
+    		    android:text="Jeśli chcesz usunąc nagranie, kliknij i przytrzymaj interesującą pozycję. W menu, które się pokaże wybierz Usuń."
+    		    android:textColor="@color/black" />
+
+   		</LinearLayout>
+    </ScrollView>
+</RelativeLayout>

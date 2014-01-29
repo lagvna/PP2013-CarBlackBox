@@ -32,5 +32,9 @@
     <string name="Detect_settings">Ustawienia detektora wypadków</string>
     <string name="Personal_settings">Konto użytkownika</string>
     <string name="Movie_length">Długość filmu</string>
+    <string name="title_activity_call">CallActivity</string>
+    <string name="Help_przeg">Aby obejrzeć film kliknij odpowiednią pozycję.\nŻeby usunąć nagranie przytrzymaj wybrany film i kliknij usuń.</string>
+    <string name="title_activity_loading_screen">LoadingScreen</string>
+    <string name="g_wna_pomoc">Główna pomoc</string>
 
 </resources>

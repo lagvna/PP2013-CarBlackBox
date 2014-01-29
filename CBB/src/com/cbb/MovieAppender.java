@@ -24,28 +24,54 @@ import java.util.LinkedList;
 import java.util.List;
 import java.io.RandomAccessFile;
 
+import settings.SaveOpenSettings;
+import settings.Settings;
+
 /**
  * Klasa sluzaca do zlaczenia dwoch filmow w calosc oraz dociecia ich do odpowiedniej dlugosci.
  * Wszystko odbywa sie jako zdarzenie asynchroniczne.
  */
 
 public class MovieAppender extends AsyncTask<Void, Void, Void>	{
-	
+	/**Nadaktywnosc, do ktorej ma zostac zwrocone dzialanie przycinania filmow*/
 	Activity fatherActivity;
+	/**Zmienna mowiaca, czy algorytm powinien laczyc filmy w naturalnej czy tez odwroconej kolejnosci*/
 	boolean isInverted;
+	/**Tablica kawalkow nagrac do zlaczenia i przyciecia*/
 	Movie[] inMovies;
+	/**Obiekt przechowujacy informacje z ustawien, w szczegolnosci pobiera informacje o zadanej dlugosci nagrania*/
+	Settings s;
 		  
+	/**
+	 * Glowny konstruktor klasy
+	 * Pobiera ustawienia aplikacji.
+	 * @param fatherActivity informacja o nadaktywnosci, tj. gdzie ma zostac zwrocony rezultat dialogu
+	 * @param isInverted informacja czy laczyc filmy w naturalnej czy odwroconej kolejnosci
+	 */
 	public MovieAppender(Activity fatherActivity, boolean isInverted) {
 		this.fatherActivity = fatherActivity;
 		this.isInverted = isInverted;
+		try {
+			s = SaveOpenSettings.open();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
+	/**
+	 * Metoda wywolujaca dialog proszacy o poczekanie az stworzy sie i zapisze gotowe
+	 * nagranie w nadaktywnosci.
+	 */
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onPreExecute() {
 	    fatherActivity.showDialog(RecActivity.PLEASE_WAIT_DIALOG);
 	}
 	 
+	/**
+	 * Metoda okreslajaca co sie dzieje w tle dialogu.
+	 * Dwa nagrania sa laczone ze soba, a nastepnie docinane do odpowiedniej dlugosci.
+	 */
 	@Override
 	protected Void doInBackground(Void... arg0) {
 	    try {
@@ -56,7 +82,11 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
 		}
 	    return null;
 	}
-	 
+	 /**
+	  * Metoda okreslajaca co sie stanie po zakonczeniu dialogu.
+	  * Wywolany zostanie toast w nadaktywnosci, mowiacy o tym, ze nagranie sie powiodlo
+	  * i zostalo zapisane.
+	  */
 	@SuppressWarnings("deprecation")
 	@Override
 	protected void onPostExecute(Void result) {
@@ -64,6 +94,12 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
 	    Toast.makeText(fatherActivity, "Utworzono nagranie!", Toast.LENGTH_SHORT).show();
 	}
 	
+	/**
+	 * Metoda sluzaca do zlaczenia dwoch nagran w calosc.
+	 * W wyniku otrzymujemy plik tmpcbb3.mp4, ktory nastepnie poddawany jest przycieciu
+	 * do zadanej dlugosci.
+	 * @throws IOException wyjatek w przypadku braku/bledu pliku.
+	 */
     public void appendMovies() throws IOException {
 
 
@@ -114,6 +150,10 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
         fc.close();
     }
     
+    /**
+     * Metoda sluzaca obcieciu nagrania przygotowanego przez metode appendMovies, do zadanej dlugosci
+     * @throws IOException wyjatek w przypadku bledu/braku pliku
+     */
     public void trimMovies() throws IOException	{
     	Movie movie = MovieCreator.build(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/tmpcbb3.mp4"));
 
@@ -121,11 +161,12 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
         movie.setTracks(new LinkedList<Track>());
         
         double duration = getDuration(String.format(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM)+"/tmpcbb3.mp4"));
+        int length = s.getFilmLength();
         
         System.err.println("Dlugość filmu: " + duration);
         
         double endTime1 = duration;
-        double startTime1 = duration - 30;
+        double startTime1 = duration - length;
 
         boolean timeCorrected = false;
 
@@ -189,7 +230,14 @@ public class MovieAppender extends AsyncTask<Void, Void, Void>	{
         
         return lengthInSeconds;
     }
-
+    /**
+     * Metoda synchronizujaca dzwiek z filmem. Jej wywolanie jest niezbedne, szczegolnie jesli filmy docinamy
+     * w niestandardowych czasach (tj. np. nie poczatek z koncem)
+     * @param track aktualna sciezka
+     * @param cutHere sekunda dociecia
+     * @param next czy istnieje nastepna sciezka
+     * @return zwraca czasy dostosowujace dzwiek do filmu
+     */
     private double correctTimeToSyncSample(Track track, double cutHere, boolean next) {
         double[] timeOfSyncSamples = new double[track.getSyncSamples().length];
         long currentSample = 0;

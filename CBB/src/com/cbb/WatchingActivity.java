@@ -9,10 +9,22 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.VideoView;
 
+/**
+ * Klasa sluzaca do ogladania nagrania wykonanego przez aplikacje.
+ * @author lagvna
+ *
+ */
 public class WatchingActivity extends Activity {
+	/**Widok dla odtwarzacza filmu*/
 	VideoView vv;
+	/**Nazwa odtwarzanego pliku*/
 	String name;
 	
+	/**
+	 * Glowny konstruktor aktywnosci.
+	 * 
+	 * Tworzy widok dla odtwarzacza oraz rozpoczyna odtwarzanie wybranego filmu.
+	 */
 	  @Override
 	  public void onCreate(Bundle savedInstanceState) {
 		  super.onCreate(savedInstanceState);
@@ -30,6 +42,10 @@ public class WatchingActivity extends Activity {
 		  vv.start();
 	  }
 	  
+	  /**
+	   * Metoda pomocnicza pobierajaca nazwe nagrania z extrasow.
+	   * @return zwraca nazwe filmu
+	   */
 	  private String getName()	{
 		  Bundle extras = getIntent().getExtras();
 		  String name = extras.getString("title");

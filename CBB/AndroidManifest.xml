@@ -13,6 +13,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
 
     <application
         android:allowBackup="true"
@@ -43,11 +44,14 @@
         </activity>
         <activity
             android:name="com.cbb.LibraryActivity"
-            android:label="@string/title_activity_library" >
+            android:label="@string/title_activity_library"
+            android:theme="@android:style/Theme.Black" >
         </activity>
         <activity
             android:name="com.cbb.RecActivity"
-            android:label="@string/title_activity_rec" >
+            android:label="@string/title_activity_rec"
+            android:theme="@android:style/Theme.Black"
+            android:screenOrientation="landscape">
         </activity>
         <activity
             android:name="com.cbb.CreditsActivity"
@@ -56,6 +60,15 @@
         <activity
             android:name="com.cbb.WatchingActivity"
             android:label="@string/title_activity_watching" >
+        </activity>
+        <activity
+            android:name="com.cbb.CallActivity"
+            android:label="@string/title_activity_call" >
+        </activity>
+        <activity
+            android:name="com.cbb.LoadingScreen"
+            android:label="@string/title_activity_loading_screen"
+            android:screenOrientation="landscape" >
         </activity>
     </application>
 

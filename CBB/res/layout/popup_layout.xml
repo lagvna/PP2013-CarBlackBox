@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+   	android:layout_width="wrap_content"
+   	android:id="@+id/popup"
+   	android:padding="20dp"
+   	android:layout_height="wrap_content"
+   	android:background="@drawable/popup_bg"
+   	android:orientation="vertical" >
+	<ScrollView
+    	android:layout_width="match_parent"
+    	android:layout_height="wrap_content"
+    	android:paddingTop="20dp">
+
+		<LinearLayout
+	    	android:layout_width="match_parent"
+    		android:layout_height="wrap_content"
+    		android:orientation="vertical">
+    		<TextView
+		    	android:id="@+id/ust"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:textStyle="bold"
+        		android:textAppearance="?android:attr/textAppearanceMedium"
+        		android:text="Ustawienia" />
+    		<TextView
+		    	android:id="@+id/dlTit"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:textStyle="bold"
+        		android:text="Długość filmu:" />
+    		<TextView
+		    	android:id="@+id/dlDesc"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:text="Długość filmu określa rozmiar nagrania, które ma zostać zapisane w przypadku zaprzestania filmowania." />
+    		<TextView
+		    	android:id="@+id/gpsT"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:textStyle="bold"
+        		android:text="GPS:" />
+    		<TextView
+		    	android:id="@+id/gpsDesc"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:text="Czułość GPS określa jaka zmiana prędkości w km/h musi nastąpić, aby detektor przerwał nagranie.\nSUGEROWANA WARTOŚĆ TO 50!" />
+    		<TextView
+		    	android:id="@+id/akT"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:textStyle="bold"
+        		android:text="Akcelerometr:" />
+    		<TextView
+		    	android:id="@+id/akDesc"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:text="Czułość akcelerometru określa jaką długość musi mieć wektor wypadkowy, aby detektor przerwał nagranie.\nSUGEROWANA WARTOŚĆ TO 30!" />
+    		<TextView
+		    	android:id="@+id/konT"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:textStyle="bold"
+        		android:text="Numer kontaktowy:" />
+    		<TextView
+		    	android:id="@+id/konDesc"
+    	    	android:layout_height="wrap_content"
+        		android:layout_width="fill_parent"
+        		android:text="Numer kontaktowy, to Twój numer ICE, pod który będziesz mógł zadzwonić w przypadku nieoczekiwanego zdarzenia." />
+   		</LinearLayout>
+    </ScrollView>
+</RelativeLayout>

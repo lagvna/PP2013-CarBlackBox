@@ -13,10 +13,17 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+/**
+ * Klasa adaptera dla niestandardowego ListView, przy uzyciu listy tablicowej.
+ * @author lagvna
+ *
+ */
 public class ListViewAdapter extends ArrayAdapter<CustomRow> {
-		 
+		 /** Kontekst listView */
 	    Context context;
+	    /** Id szablonu zawartosci */
 	    int layoutResourceId;  
+	    /** Lista tablicowa  z danymi listView*/
 	    ArrayList<CustomRow> data = null;
 	 
 	    public ListViewAdapter(Context context, int layoutResourceId, ArrayList<CustomRow> data) {
@@ -25,7 +32,10 @@ public class ListViewAdapter extends ArrayAdapter<CustomRow> {
 	        this.context = context;
 	        this.data = data;
 	    }
-	 
+	    
+	    /**
+	     * Metoda sluzaca do poboru danych dla konkretnego rekordu w ListView
+	     */
 	    @Override
 	    public View getView(int position, View convertView, ViewGroup parent) {
 	        View row = convertView;
@@ -55,7 +65,11 @@ public class ListViewAdapter extends ArrayAdapter<CustomRow> {
 	 
 	        return row;
     }
-	 
+	/**
+	 * Klasa przechowujaca dane o polach danego rekordu.
+	 * @author lagvna
+	 *
+	 */
 	static class RowHolder	{
 	    ImageView imgIcon;
 	    TextView txtTitle;

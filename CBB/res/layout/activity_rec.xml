@@ -14,25 +14,12 @@
             android:layout_height="match_parent" >
 
         </SurfaceView>
-        <Button
-		   	android:id="@+id/recButton"
-	    	android:text=""
-	    	android:textColor="@color/white"
-	    	android:textSize="20sp"
-	    	android:layout_width="match_parent"
-	    	android:layout_height="wrap_content"
-	    	android:background="@drawable/sign_button_shape"
-	    	android:layout_alignParentTop="true"
-	    	android:layout_gravity="center"
-	    	android:onClick="startRecording"/>
 
         <ImageButton
             android:id="@+id/redBut"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
             android:background="@drawable/button"
-            android:layout_alignRight="@+id/recButton"
             android:src="@drawable/recbutton" />
 
     </RelativeLayout>

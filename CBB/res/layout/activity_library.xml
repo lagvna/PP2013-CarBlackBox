@@ -8,7 +8,17 @@
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:background="@drawable/titlebar"     
-		android:gravity="center_horizontal">
+		>
+		<ImageButton
+            android:id="@+id/imageHP"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/button"
+            android:onClick="clickHelp"
+            android:src="@drawable/helps" />
         <TextView
             android:layout_centerVertical="true"
             android:layout_centerInParent="true"
